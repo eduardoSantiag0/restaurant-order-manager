@@ -9,11 +9,13 @@ public class OrderGenerator implements Runnable{
     private List<Mesa> listaMesas;
     private boolean isRunning;
     private final int numeroDePedidosMaximo = 10;
+    private int numeroDeMesas;
 
-    public OrderGenerator(Queue<Order> fila, List<Mesa> listaMesas) {
+    public OrderGenerator(Queue<Order> fila, List<Mesa> listaMesas, int numeroDeMesas) {
         this.isRunning = true;
         this.filaDePedidos = fila;
         this.listaMesas = listaMesas;
+        this.numeroDeMesas = numeroDeMesas;
     }
 
     @Override
@@ -27,10 +29,13 @@ public class OrderGenerator implements Runnable{
             }
             try {
                 Order order = new Order();
-                associarMesaEPedido(order);
-                filaDePedidos.add(order);
-                contadorDePedidos++;
-                Thread.sleep(2000);
+//                Order order = new Order(numeroDeMesas);
+                boolean mesaLivre = associarMesaEPedido(order);
+                if (mesaLivre) {
+                    filaDePedidos.add(order);
+                    contadorDePedidos++;
+                    Thread.sleep(2000);
+                }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Order generation interrupted.");
@@ -39,13 +44,14 @@ public class OrderGenerator implements Runnable{
         }
     }
 
-    private void associarMesaEPedido(Order order) {
+    private boolean associarMesaEPedido(Order order) {
         for (Mesa m : listaMesas) {
             if (m.getNumero() == order.getNumeroDaMesa() && m.getEstadoAtual() != Mesa.Estado.ESPERANDO) {
                 m.receberPedido(order.getPedido());
                 System.out.printf("%s para a Mesa %d\n", order.getPedido(), m.getNumero());
-                break;
+                return true;
             }
         }
+        return false;
     }
 }
