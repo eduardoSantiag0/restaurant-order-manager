@@ -8,7 +8,7 @@ import java.util.Queue;
 public class Mesa {
 
     public final int numero;
-    public Pedido pedidoAtual;
+    public Comida comidaAtual;
     private Estado estadoAtual;
     private boolean prioridade;
     private static Queue<Order> filaDePedidos;
@@ -29,7 +29,7 @@ public class Mesa {
     }
 
     //* Recebendo Pedido
-    public void receberPedido (Pedido novoPedido) {
+    public void receberPedido (Comida novoComida) {
         this.estadoAtual = Estado.ESPERANDO;
     }
 
@@ -38,7 +38,7 @@ public class Mesa {
         if (this.estadoAtual == Estado.ESPERANDO) {
             this.estadoAtual = Estado.VAZIA;
             System.out.printf("Mesa %d está satisfeita e %s\n", numero, estadoAtual);
-            this.pedidoAtual = null;
+            this.comidaAtual = null;
         }
     }
 

@@ -8,7 +8,7 @@ import java.security.SecureRandom;
 public class Order {
     SecureRandom generator = new SecureRandom();
 
-    private Pedido pedido;
+    private Comida comida;
     private int numeroDaMesa;
 
     private static final int OPCOES_DE_PEDIDO = 3;
@@ -31,22 +31,22 @@ public class Order {
     private void setPedidoAtual(int comida) {
         switch (comida) {
             case 0:
-                this.pedido = Pedido.CARNE;
+                this.comida = Comida.CARNE;
                 break;
             case 1:
-                this.pedido = Pedido.VEGANO;
+                this.comida = Comida.VEGANO;
                 break;
             case 2:
-                this.pedido = Pedido.PEIXE;
+                this.comida = Comida.PEIXE;
                 break;
             default:
-                this.pedido = null;
+                this.comida = null;
                 break;
         }
     }
 
-    public Pedido getPedido () {
-        return this.pedido;
+    public Comida getComida() {
+        return this.comida;
     }
 
     public int setNumeroMesa (int numero) {
@@ -55,7 +55,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Pedido=" + pedido +
+        return "Pedido=" + comida +
                 " na Mesa=" + numeroDaMesa +
                 '|';
     }

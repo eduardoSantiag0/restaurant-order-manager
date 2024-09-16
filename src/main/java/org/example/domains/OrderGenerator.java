@@ -47,8 +47,8 @@ public class OrderGenerator implements Runnable{
     private boolean associarMesaEPedido(Order order) {
         for (Mesa m : listaMesas) {
             if (m.getNumero() == order.getNumeroDaMesa() && m.getEstadoAtual() != Mesa.Estado.ESPERANDO) {
-                m.receberPedido(order.getPedido());
-                System.out.printf("%s para a Mesa %d\n", order.getPedido(), m.getNumero());
+                m.receberPedido(order.getComida());
+                System.out.printf("%s para a Mesa %d\n", order.getComida(), m.getNumero());
                 return true;
             }
         }

@@ -50,7 +50,7 @@ public class Garcom implements Runnable{
                     }
                 }
 
-                System.out.printf("%s está processando o pedido para a Mesa %d: %s  %n", nome, mesaAtual.getNumero(), order.getPedido());
+                System.out.printf("%s está processando o pedido para a Mesa %d: %s  %n", nome, mesaAtual.getNumero(), order.getComida());
                 if (mesaAtual != null) {
                     try {
                         mesaAtual.concluirPedido();

@@ -43,7 +43,8 @@ public class Restaurant {
     }
 
     private static void iniciandoThreads() {
-        String [] nomesGarcons =  {"GLAUBER ROCHA", "AKIRA KUROSAWA", "WIM WENDERS"};
+//        String [] nomesGarcons =  {"GLAUBER ROCHA", "AKIRA KUROSAWA", "WIM WENDERS"};
+        String [] nomesGarcons =  {"WES ANDERSON", "EDGAR WRIGHT", "GUS VAN SANT"};
         Arrays.stream(nomesGarcons).map(n -> new Garcom(n, filaDePedidos, listaDeMesas)).forEach(listaDeGarcons::add);
         listaDeGarcons.forEach(g -> executorService.execute(g));
 
@@ -56,10 +57,9 @@ public class Restaurant {
         setUp();
         System.out.printf("NÚMERO DE PEDIDOS %d\n\n", filaDePedidos.size());
         System.out.printf("NÚMERO DE MESAS  %d\n\n", listaDeMesas.size());
-        iniciandoThreads();
-
         System.out.println(filaDePedidos);
-
+        iniciandoThreads();
+        System.out.println("\n");
 
         executorService.shutdown();
     }

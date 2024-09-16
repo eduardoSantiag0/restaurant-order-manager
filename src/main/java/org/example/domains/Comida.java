@@ -1,6 +1,6 @@
 package org.example.domains;
 
-public enum Pedido {
+public enum Comida {
     CARNE,
     PEIXE,
     VEGANO;
