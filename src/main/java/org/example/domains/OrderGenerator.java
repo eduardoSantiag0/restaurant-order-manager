@@ -11,6 +11,8 @@ public class OrderGenerator implements Runnable{
     private final int numeroDePedidosMaximo = 10;
     private int numeroDeMesas;
 
+    private final int TEMPO_POR_PEDIDO = 5000;
+
     public OrderGenerator(Queue<Order> fila, List<Mesa> listaMesas, int numeroDeMesas) {
         this.isRunning = true;
         this.filaDePedidos = fila;
@@ -32,9 +34,12 @@ public class OrderGenerator implements Runnable{
 //                Order order = new Order(numeroDeMesas);
                 boolean mesaLivre = associarMesaEPedido(order);
                 if (mesaLivre) {
-                    filaDePedidos.add(order);
-                    contadorDePedidos++;
-                    Thread.sleep(2000);
+                    synchronized (filaDePedidos) {
+                        filaDePedidos.add(order);
+                        contadorDePedidos++;
+                        filaDePedidos.notifyAll();
+                    }
+                    Thread.sleep(TEMPO_POR_PEDIDO);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

@@ -29,15 +29,18 @@ public class Garcom implements Runnable{
     public void run() {
         //* Continua procurando por mesas que estão esperando
         while (isRunning) {
+            synchronized (filaDePedidos) {
                 if (filaDePedidos.isEmpty()) {
                     try {
-                        Thread.sleep(3000);
+                        // Thread.sleep(3000);
+                        filaDePedidos.wait();
                     } catch (InterruptedException e) {
                         System.out.printf("%s foi interrompido%n", nome);
                         Thread.currentThread().interrupt();
                         isRunning = false;
                     }
                 }
+            }
 
                 Order order = filaDePedidos.poll();
                 Mesa mesaAtual = null;
